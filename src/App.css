@@ -1,0 +1,22 @@
+body {
+  transition: all 2s;
+}
+
+li {
+  margin: 30px;
+}
+
+.controls {
+  min-height: 50px;
+}
+
+.delete-button {
+	margin-left: 10px;
+}
+
+.created {
+	border-radius: 5px;
+	background: lightblue;
+	border: 1px solid blue;
+	padding: 30px;
+}
