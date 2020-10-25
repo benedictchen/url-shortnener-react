@@ -2,8 +2,8 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const ACCESS_TOKEN = 'd4c5c79b77c09411fe3bd19b141aac72';
-const GB_API_ENDPOINT = 'http://api.bely.me';
+export const ACCESS_TOKEN = 'd4c5c79b77c09411fe3bd19b141aac72';
+export const GB_API_ENDPOINT = 'http://api.bely.me';
 
 
 interface AppState {
@@ -55,7 +55,7 @@ export class App extends React.Component<{}, AppState> {
       this.setState({ data, currentRequest: null });
     }).catch((error) => {
       this.setState({ currentRequest: null });
-      console.error({error});
+      throw error;
     });
 
     this.setState({
@@ -77,7 +77,6 @@ export class App extends React.Component<{}, AppState> {
     }).then((response) => {
       return response.json();
     }).then((data) => {
-       console.log({data});
        this.setState({
          urlToShorten: '',
          newItem: data,
@@ -87,7 +86,6 @@ export class App extends React.Component<{}, AppState> {
       this.setState({
         currentRequest: null,
       });
-      console.error({error});
       alert('failed!');
     });
 
@@ -116,7 +114,6 @@ export class App extends React.Component<{}, AppState> {
     if (!item) {
       throw new TypeError('Nothing to delete.');
     }
-    console.log('attempting to delete', {item});
     const request = fetch(GB_API_ENDPOINT + `/links/${item.slug}`, {
       method: 'DELETE',
       headers: {
@@ -137,7 +134,7 @@ export class App extends React.Component<{}, AppState> {
             <input type="url"
                    ref={(this.textInput as unknown) as string}
                    onChange={this.handleChange.bind(this)}/>
-            <button onClick={this.handleSubmit.bind(this)}>
+            <button className="submit" onClick={this.handleSubmit.bind(this)}>
               Shorten
             </button>
           </form> ) : null
@@ -158,11 +155,12 @@ export class App extends React.Component<{}, AppState> {
         <ul>
         {this.state?.data?.map((datum: UrlItem, i) => {
           return (
-            <li key={i}>
+            <li key={i} className="url-item">
             {datum['url']} → {datum['short_url']}
             <button className="delete-button"
                     onClick={this.handleDelete.bind(this, datum)}>
-            ×</button>
+              ×
+            </button>
             </li>
           );
         })}
@@ -172,5 +170,3 @@ export class App extends React.Component<{}, AppState> {
   }
 
 }
-
-export default App;

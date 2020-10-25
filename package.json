@@ -69,7 +69,7 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js --watchAll --coverage"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -142,6 +142,11 @@
     ]
   },
   "devDependencies": {
-    "@types/react": "^16.9.53"
+    "@types/react": "^16.9.53",
+    "async-wait-until": "^1.2.6",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.5",
+    "jest-fetch-mock": "^3.0.3",
+    "nock": "^13.0.4"
   }
 }
